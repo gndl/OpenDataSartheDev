@@ -1,0 +1,4 @@
+Dec 13 21:26:40: ocsipersist:dbm: Initializing ...
+Dec 13 21:26:40: ocsipersist:dbm: Launching a new Ocsidbm process: /home/gndl/.opam/4.04.0/lib/ocsigenserver/extensions/ocsidbm on directory local/var/data/OpenDataSartheDev/ocsipersist.
+Dec 13 21:26:41: ocsipersist:dbm: ...Initialization complete
+Dec 13 21:26:42: ocsigen:config: While parsing config file, tag <host>: No defaulthostname, assuming it is "mamachine.fbx.proxad.net"
