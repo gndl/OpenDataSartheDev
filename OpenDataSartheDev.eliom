@@ -18,7 +18,8 @@ let main_service =
     ()
 
 let () =
-  OpenDataSartheDev_app.register
+  ClientSourceCulturel.launch ()
+  >>= OpenDataSartheDev_app.register
     ~service:main_service
     (fun () () ->
       Lwt.return
