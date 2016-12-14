@@ -1,0 +1,7 @@
+
+B _server
+B _client
+
+PKG lwt lwt.ppx js_of_ocaml.ppx js_of_ocaml.deriving.ppx
+
+EXT lwt

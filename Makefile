@@ -30,9 +30,9 @@ export ELIOM_TYPE_DIR   := _server
 DEPSDIR := _deps
 
 ifeq ($(DEBUG),yes)
-  GENERATE_DEBUG ?= -g
+  GENERATE_DEBUG ?= -g -bin-annot
   RUN_DEBUG ?= "-v"
-  DEBUG_JS ?= -jsopt -pretty -jsopt -noinline -jsopt -debuginfo
+  DEBUG_JS ?= -jsopt --pretty -jsopt --noinline -jsopt --debuginfo
 endif
 
 ##----------------------------------------------------------------------
