@@ -1,0 +1,31 @@
+OASISFormat: 0.4
+Name: OpenDataSartheDev
+Version: 1.0
+Synopsis: a description
+Authors: Gaëtan Dubreil
+License: MIT
+AlphaFeatures: ocamlbuild_more_args, compiled_setup_ml
+Plugins: META (0.4), DevFiles (0.4)
+BuildTools: ocamlbuild
+XOCamlbuildPluginTags: package(eliom.ocamlbuild)
+XOCamlbuildExtraArgs: -r
+OCamlVersion: >= 4.01
+PreConfCommand: opam install -y xmlm
+
+Library "OpenDataSartheDev"
+  Path: src
+  Modules: server/OpenDataSartheDev
+  BuildDepends: eliom.server, lwt, lwt.ppx, js_of_ocaml.deriving.ppx, xmlm
+  NativeOpt: -thread
+  ByteOpt: -thread
+  DataFiles: ../_build/src/client/OpenDataSartheDevClient.js
+
+Executable "OpenDataSartheDevClient"
+  Install: false # We normally don't install the client bytecode file
+  Path: src/client
+  MainIs: OpenDataSartheDevClient.ml # Main file. It should refer to all the modules
+# used for this program (including .eliom files)
+  BuildDepends: eliom.client, lwt, lwt.ppx, js_of_ocaml.ppx, js_of_ocaml.deriving.ppx
+  ByteOpt: -thread
+  CompiledObject: byte
+  

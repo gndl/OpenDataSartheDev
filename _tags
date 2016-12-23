@@ -1,0 +1,6 @@
+# OASIS_START
+# OASIS_STOP
+<server/*>: package(eliom.server), package(xlmm), thread
+<client/*>: package(eliom.client)
+<*.eliom>: eliom_ppx
+<*.eliomi>: eliom_ppx

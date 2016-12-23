@@ -1,8 +1,32 @@
-_server/OpenDataSartheDev.cmo :
-_server/OpenDataSartheDev.cmx :
-_server/OpenDataSartheDev.cmo : _server/OpenDataSartheDev.type_mli
-_server/OpenDataSartheDev.cmx : _server/OpenDataSartheDev.type_mli
-_client/OpenDataSartheDev.cmo :
-_client/OpenDataSartheDev.cmx :
-_client/OpenDataSartheDev.cmo : _server/OpenDataSartheDev.type_mli
-_client/OpenDataSartheDev.cmx : _server/OpenDataSartheDev.type_mli
+src/typeActivite.cmo :
+src/typeActivite.cmx :
+src/typeActivite.cmo : _server/src/typeActivite.type_mli
+src/typeActivite.cmx : _server/src/typeActivite.type_mli
+src/clientSourceCulturel.cmo :
+src/clientSourceCulturel.cmx :
+src/clientSourceCulturel.cmo : _server/src/clientSourceCulturel.type_mli
+src/clientSourceCulturel.cmx : _server/src/clientSourceCulturel.type_mli
+src/notes.cmo :
+src/notes.cmx :
+src/notes.cmo : _server/src/notes.type_mli
+src/notes.cmx : _server/src/notes.type_mli
+src/OpenDataSartheDev.cmo :
+src/OpenDataSartheDev.cmx :
+src/OpenDataSartheDev.cmo : _server/src/OpenDataSartheDev.type_mli
+src/OpenDataSartheDev.cmx : _server/src/OpenDataSartheDev.type_mli
+src/typeActivite.cmo :
+src/typeActivite.cmx :
+src/typeActivite.cmo : _server/src/typeActivite.type_mli
+src/typeActivite.cmx : _server/src/typeActivite.type_mli
+src/clientSourceCulturel.cmo :
+src/clientSourceCulturel.cmx :
+src/clientSourceCulturel.cmo : _server/src/clientSourceCulturel.type_mli
+src/clientSourceCulturel.cmx : _server/src/clientSourceCulturel.type_mli
+src/notes.cmo :
+src/notes.cmx :
+src/notes.cmo : _server/src/notes.type_mli
+src/notes.cmx : _server/src/notes.type_mli
+src/OpenDataSartheDev.cmo :
+src/OpenDataSartheDev.cmx :
+src/OpenDataSartheDev.cmo : _server/src/OpenDataSartheDev.type_mli
+src/OpenDataSartheDev.cmx : _server/src/OpenDataSartheDev.type_mli
