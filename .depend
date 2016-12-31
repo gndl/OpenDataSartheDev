@@ -1,32 +1,35 @@
-src/typeActivite.cmo :
-src/typeActivite.cmx :
-src/typeActivite.cmo : _server/src/typeActivite.type_mli
-src/typeActivite.cmx : _server/src/typeActivite.type_mli
-src/clientSourceCulturel.cmo :
-src/clientSourceCulturel.cmx :
-src/clientSourceCulturel.cmo : _server/src/clientSourceCulturel.type_mli
-src/clientSourceCulturel.cmx : _server/src/clientSourceCulturel.type_mli
-src/notes.cmo :
-src/notes.cmx :
-src/notes.cmo : _server/src/notes.type_mli
-src/notes.cmx : _server/src/notes.type_mli
-src/OpenDataSartheDev.cmo :
-src/OpenDataSartheDev.cmx :
-src/OpenDataSartheDev.cmo : _server/src/OpenDataSartheDev.type_mli
-src/OpenDataSartheDev.cmx : _server/src/OpenDataSartheDev.type_mli
-src/typeActivite.cmo :
-src/typeActivite.cmx :
-src/typeActivite.cmo : _server/src/typeActivite.type_mli
-src/typeActivite.cmx : _server/src/typeActivite.type_mli
-src/clientSourceCulturel.cmo :
-src/clientSourceCulturel.cmx :
-src/clientSourceCulturel.cmo : _server/src/clientSourceCulturel.type_mli
-src/clientSourceCulturel.cmx : _server/src/clientSourceCulturel.type_mli
-src/notes.cmo :
-src/notes.cmx :
-src/notes.cmo : _server/src/notes.type_mli
-src/notes.cmx : _server/src/notes.type_mli
-src/OpenDataSartheDev.cmo :
-src/OpenDataSartheDev.cmx :
-src/OpenDataSartheDev.cmo : _server/src/OpenDataSartheDev.type_mli
-src/OpenDataSartheDev.cmx : _server/src/OpenDataSartheDev.type_mli
+_server/openDataSartheDev.cmo :
+_server/openDataSartheDev.cmx :
+_server/openDataSartheDev.cmo : _server/openDataSartheDev.type_mli
+_server/openDataSartheDev.cmx : _server/openDataSartheDev.type_mli
+_server/evenementServiceRest.cmo : _server/typeEvenement.cmo _server/to.cmo _server/evenementDetails.cmo _server/evenementCore.cmo _server/evenement.cmo
+_server/evenementServiceRest.cmx : _server/typeEvenement.cmx _server/to.cmx _server/evenementDetails.cmx _server/evenementCore.cmx _server/evenement.cmx
+_server/evenementServiceRest.type_mli : _server/typeEvenement.cmo _server/to.cmo _server/evenementDetails.cmo _server/evenementCore.cmo _server/evenement.cmo
+_server/evenementServiceRest.cmo : _server/evenementServiceRest.type_mli
+_server/evenementServiceRest.cmx : _server/evenementServiceRest.type_mli
+_server/to.cmo :
+_server/to.cmx :
+_server/notes.cmo :
+_server/notes.cmx :
+_server/evenementCore.cmo : _server/notes.cmo _server/evenementDetails.cmo _server/clientSourceEvenementielle.cmo _server/clientSourceCulturel.cmo
+_server/evenementCore.cmx : _server/notes.cmx _server/evenementDetails.cmx _server/clientSourceEvenementielle.cmx _server/clientSourceCulturel.cmx
+_server/typeEvenement.cmo :
+_server/typeEvenement.cmx :
+_server/parseXml.cmo : _server/to.cmo _server/evenementDetails.cmo _server/evenement.cmo
+_server/parseXml.cmx : _server/to.cmx _server/evenementDetails.cmx _server/evenement.cmx
+_server/clientSourceEvenementielle.cmo : _server/to.cmo _server/parseXml.cmo _server/evenementDetails.cmo _server/evenement.cmo
+_server/clientSourceEvenementielle.cmx : _server/to.cmx _server/parseXml.cmx _server/evenementDetails.cmx _server/evenement.cmx
+_server/evenement.cmo :
+_server/evenement.cmx :
+_server/clientSourceCulturel.cmo : _server/to.cmo _server/parseXml.cmo _server/evenementDetails.cmo _server/evenement.cmo
+_server/clientSourceCulturel.cmx : _server/to.cmx _server/parseXml.cmx _server/evenementDetails.cmx _server/evenement.cmx
+_server/evenementDetails.cmo :
+_server/evenementDetails.cmx :
+_client/openDataSartheDev.cmo :
+_client/openDataSartheDev.cmx :
+_client/openDataSartheDev.cmo : _server/openDataSartheDev.type_mli
+_client/openDataSartheDev.cmx : _server/openDataSartheDev.type_mli
+_client/evenementServiceRest.cmo :
+_client/evenementServiceRest.cmx :
+_client/evenementServiceRest.cmo : _server/evenementServiceRest.type_mli
+_client/evenementServiceRest.cmx : _server/evenementServiceRest.type_mli

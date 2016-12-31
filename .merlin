@@ -1,8 +1,7 @@
-S src/**
-
+S .
 B _server
 B _client
 
-PKG lwt lwt.ppx js_of_ocaml.ppx js_of_ocaml.deriving.ppx ocsigenserver eliom ocsigen-toolkit ocsipersist xmlm
+PKG lwt lwt.ppx js_of_ocaml.ppx js_of_ocaml.deriving.ppx ocsigenserver eliom ocsigen-toolkit ocsipersist ppx_deriving_yojson xmlm
 
 EXT lwt

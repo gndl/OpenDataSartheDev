@@ -1,6 +1,8 @@
+[%%shared
 open Eliom_lib
 open Eliom_content
 open Html.D
+]
 
 module OpenDataSartheDev_app =
   Eliom_registration.App (
@@ -26,13 +28,4 @@ let () =
             Html.F.(body [
               h1 [pcdata "Actualités cuculturelles"];
             ])));
-  (*let%lwt () = *)
-            (*
-  ClientSourceCulturel.getType()
-  in
-  Lwt.return()
-  Lwt.async (fun () -> ClientSourceCulturel.getListeActivite "Activites sportives");
-  Lwt.async (fun () -> ClientSourceCulturel.launch());
-  *)
-  Lwt.async (fun () -> ClientSourceCulturel.getType());
   ;;

@@ -1,5 +1,0 @@
-_server/OpenDataSartheDev.cmo : _server/clientSourceCulturel.cmo
-_server/OpenDataSartheDev.cmx : _server/clientSourceCulturel.cmx
-_server/OpenDataSartheDev.type_mli : _server/clientSourceCulturel.cmo
-_server/OpenDataSartheDev.cmo : _server/OpenDataSartheDev.type_mli
-_server/OpenDataSartheDev.cmx : _server/OpenDataSartheDev.type_mli

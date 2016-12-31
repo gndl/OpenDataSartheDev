@@ -6,14 +6,14 @@
 PROJECT_NAME := OpenDataSartheDev
 
 # Source files for the server
-SERVER_FILES := $(wildcard src/*.eliomi src/*.eliom src/*.mli src/*.ml)
+SERVER_FILES := $(wildcard *.eliomi *.eliom *.mli *.ml)
 # Source files for the client
-CLIENT_FILES := $(wildcard src/*.eliomi src/*.eliom src/*.mli src/*.ml)
+CLIENT_FILES := $(wildcard *.eliomi *.eliom)
 
 # OCamlfind packages for the server
-SERVER_PACKAGES := lwt.ppx js_of_ocaml.deriving.ppx xmlm
+SERVER_PACKAGES := lwt.ppx js_of_ocaml.deriving.ppx ppx_deriving.std ppx_deriving_yojson xmlm
 # OCamlfind packages for the client
-CLIENT_PACKAGES := lwt.ppx js_of_ocaml.ppx js_of_ocaml.deriving.ppx
+CLIENT_PACKAGES := lwt.ppx js_of_ocaml.ppx js_of_ocaml.deriving.ppx ppx_deriving.std
 
 # Directory with files to be statically served
 LOCAL_STATIC = static
