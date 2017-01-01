@@ -1,4 +1,5 @@
 open Lwt
+open To
 
 let path p =
   Eliom_service.Path("wsopendatasarthedev/rservice/Evenements/" ^ p |> To.slashSplit)
