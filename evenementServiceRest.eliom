@@ -1,5 +1,9 @@
 open Lwt
+<<<<<<< HEAD
 open Ocsigen_lib
+=======
+open To
+>>>>>>> 5a2d18849c64ffa7bcfc1627269bd992bed39d27
 
 let path p =
   Eliom_service.Path(To.slashSplit("wsopendatasarthedev/rservice/Evenements/" ^ p))
