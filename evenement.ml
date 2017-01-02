@@ -7,9 +7,9 @@ type t_list = t list [@@deriving yojson]
 let listToJson es = Yojson.Safe.to_string(t_list_to_yojson es)
 
 
-let make id nameEvenement commune = {id; nameEvenement; commune; note = 0}
+let make id nameEvenement commune note = {id; nameEvenement; commune; note}
 
-let empty = make "" "" ""
+let empty = make "" "" "" 0
 
 let isOk ev = ev.id <> ""
 

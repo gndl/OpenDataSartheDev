@@ -1,69 +1,103 @@
 open Lwt
 module EvDtl = EvenementDetails
 
-(* Récupère la liste des types d'évènements *)
-let getTypeEvenement() =
-  let liste1Promise = ClientSourceEvenementielle.getType()  (* Lwt.return []*)
-  in
-  let liste2Promise = ClientSourceCulturel.getType()
-  in
-  let%lwt liste1 = liste1Promise in
-  let%lwt liste2 = liste2Promise in
+let cacheTypesEvenement = ref None
+let cacheEvenements = ref None
+let cacheEvenementsDetails = ref None
 
-  let typeEvenements = Hashtbl.create 100 in
 
-  (* Parcours et comptage des categories d'évenement
-     liste 1 *)
-  let compteCategories lst = List.iter(fun categorie ->
-    let cpt = try Hashtbl.find typeEvenements categorie with Not_found -> 0
+let makeCacheTypesEvenement categories =
+
+  let typesWeights = Hashtbl.create 100
+  in
+  (* Parcours et comptage des categories d'évenement *)
+  let compteCategorie categorie =
+    let cpt = try Hashtbl.find typesWeights categorie with Not_found -> 0
     in
-    Hashtbl.add typeEvenements categorie (cpt + 1)) lst
+    Hashtbl.replace typesWeights categorie (cpt + 1)
   in
-  compteCategories liste1;
-  compteCategories liste2;
+  List.iter compteCategorie categories;
 
   (* transformation map -> liste finale *)
-  Hashtbl.fold(fun text weight tpEvs ->
-    (TypeEvenement.make text weight)::tpEvs)
-    typeEvenements []
-  |> Lwt.return
+  let tes = Hashtbl.fold(fun text weight tes ->
+    (TypeEvenement.make text weight)::tes
+  )
+    typesWeights []
+  in
+  cacheTypesEvenement := Some tes;
+  tes
 
 
-(* recherche evenements par type. *)
-let searchEvenements typeEv =
-  (* requete de recherche des events tous les ws par type *)
+(* Récupère la liste des types d'évènements *)
+let getTypeEvenement() =
 
-  (* gestion du caractere a la con *)
-  let typeEv = if Str.string_match(Str.regexp "Cale") typeEv 0 then "Cale" else typeEv
-  in
-  let typeEv = if Str.string_match(Str.regexp "Brocante") typeEv 0 then "Brocantes" else typeEv
-  in
-  (* ws1 *)
-  let listeWs1Promise = ClientSourceEvenementielle.getListeActivite typeEv
-  in
-  (* ws2 *)
-  let listeWs2Promise = ClientSourceCulturel.getListeActivite typeEv
-  in
-  let%lwt listeWs1 = listeWs1Promise in
-  let%lwt listeWs2 = listeWs2Promise in
+  match !cacheTypesEvenement with
+  | None ->
+    let%lwt liste1 = ClientSourceEvenementielle.getType() in
+    let%lwt liste2 = ClientSourceCulturel.getType() in
 
+    makeCacheTypesEvenement(liste1 @ liste2) |> Lwt.return
+
+  | Some tes -> Lwt.return tes
+
+
+let makeEvenements evs =
   (* ajout de la note *)
   Lwt_list.map_s(fun ev ->
     let%lwt note = Notes.getNote(Evenement.getId ev) in
     Evenement.setNote ev note |> Lwt.return
-  )
-    (listeWs1 @ listeWs2)
+  ) evs
 
 
-(* retourne le detail d'un evenement. *)
-let getEvenement id =
-  (* requete de tous les ws pour recuperer les infos de l'evenement *)
-  (* ws1 *)
-  let%lwt ed = ClientSourceEvenementielle.getEvenementDetail id in
-  (* ws2 *)
-  let%lwt ed = if EvDtl.isOk ed then Lwt.return ed
-    else ClientSourceCulturel.getEvenementDetail id
+(* recherche evenements par type. *)
+let searchEvenements typeEv =
+
+  match !cacheEvenements with
+  | None ->
+    (* gestion du caractere a la con *)
+    let typeEv = if Str.string_match(Str.regexp "Cale") typeEv 0 then "Cale" else typeEv
+    in
+    let typeEv = if Str.string_match(Str.regexp "Brocante") typeEv 0 then "Brocantes" else typeEv
+    in
+    (* requete de recherche des events tous les ws par type *)
+    (* ws1 *)
+    let listeWs1Promise = ClientSourceEvenementielle.getListeActivite typeEv
+    in
+    (* ws2 *)
+    let listeWs2Promise = ClientSourceCulturel.getListeActivite typeEv
+    in
+    let%lwt listeWs1 = listeWs1Promise in
+    let%lwt listeWs2 = listeWs2Promise in
+
+    makeEvenements(listeWs1 @ listeWs2)
+
+  | Some evs -> (try Hashtbl.find evs typeEv with Not_found -> []) |> Lwt.return
+
+
+let makeCacheEvenements evenementsDetails =
+  let evenements = Hashtbl.create 100
   in
+  let%lwt () = Lwt_list.iter_s(fun ed ->
+
+    let id, name, commune, typeEv =
+      EvenementDetails.(getId ed, getNameEvenement ed, getCommune ed, getTypeEvenement ed)
+    in
+    let%lwt note = Notes.getNote id
+    in
+    let ev = Evenement.make id name commune note
+    in
+    let evLst = try Hashtbl.find evenements typeEv with Not_found -> []
+    in
+    Hashtbl.replace evenements typeEv (ev::evLst);
+    Lwt.return()
+  )
+    evenementsDetails
+  in
+  cacheEvenements := Some evenements;
+  Lwt.return()
+
+
+let amelioreEvenement ed =
   (* traitement amelioration equipement *)
   let ed = EvDtl.getEquipement ed |> To.noSharp |> EvDtl.setEquipement ed
   in
@@ -94,8 +128,53 @@ let getEvenement id =
   (* traitement carte OSM *)
   let ed = EvDtl.makeCarteOsm ed |> EvDtl.setCarteOsm ed
   in
-  ed |> Lwt.return
+  ed
+
+
+(* retourne le detail d'un evenement. *)
+let getEvenement id =
+  match !cacheEvenementsDetails with
+  | None ->
+    (* requete de tous les ws pour recuperer les infos de l'evenement *)
+    (* ws1 *)
+    let%lwt ed = ClientSourceEvenementielle.getEvenementDetail id in
+    (* ws2 *)
+    let%lwt ed = if EvDtl.isOk ed then Lwt.return ed
+      else ClientSourceCulturel.getEvenementDetail id
+    in
+    ed |> amelioreEvenement |> Lwt.return
+
+  | Some eds -> (try Hashtbl.find eds id with Not_found -> EvenementDetails.empty)
+                |> Lwt.return
+
+
+let makeCacheEvenementsDetails evenementsDetails =
+  let eds = Hashtbl.create 100
+  in
+  List.iter(fun ed -> Hashtbl.add eds (EvenementDetails.getId ed) ed)
+    evenementsDetails;
+
+  cacheEvenementsDetails := Some eds
+
+
+(* Récupère la liste des évènements *)
+let getEvenements() =
+
+  let%lwt liste1 = ClientSourceEvenementielle.getEvenements() in
+  let%lwt liste2 = ClientSourceCulturel.getEvenements() in
+
+  let evenementsDetails = liste1 @ liste2
+  in
+  let categories = List.map(fun ed -> EvenementDetails.getTypeEvenement ed)
+      evenementsDetails
+  in
+  makeCacheTypesEvenement categories |> ignore;
+
+  makeCacheEvenementsDetails evenementsDetails;
+
+  makeCacheEvenements evenementsDetails
 
 
 (* enregistrement de la note pour un evenement. *)
 let saveNote id note = Notes.setNote id note
+

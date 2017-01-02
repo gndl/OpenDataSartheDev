@@ -2,28 +2,34 @@ module Ev = Evenement
 module EvDtl = EvenementDetails
 
 
-let typeActivite inputString =
+let typeActivite inputString typePath =
+  let typePath = typePath |> To.slashSplit |> List.rev
+  in
   let i = Xmlm.make_input (`String(0, inputString))
   in
-  let parseData data types = (To.doubleSharpSplit data) @ types
+  let rec parseEv path types =
+    match Xmlm.input i with
+    | `El_start ((_, tag), _) -> parseEv(tag::path) types |> parseEv path
+    | `Data dt when path = typePath -> (To.doubleSharpSplit dt) @ types |> parseEv path
+    | `El_end -> types
+    | _ -> parseEv path types
   in
-  let rec parse isType types =
-    if Xmlm.eoi i then types
+  let rec parse lst =
+    if Xmlm.eoi i then lst
     else
       match Xmlm.input i with
-      | `El_start ((_, tag), _) when tag = "Type" -> parse true types
-      | `Data dt when isType -> parse false (parseData dt types)
-      | _ -> parse false types
+      |`El_start ((_, tag), _) when tag = "properties" -> parseEv [] lst |> parse
+      | _ -> parse lst
   in
-  List.sort_uniq String.compare (parse false [])
+  List.sort String.compare (parse [])
 
 
 let activites inputString =
-  let i = Xmlm.make_input (`String(0, inputString)) in
-
+  let i = Xmlm.make_input (`String(0, inputString))
+  in
   let rec parseProperties elem ev =
     match Xmlm.input i with
-    | `El_start ((_, tag), _) -> parseProperties tag ev
+    | `El_start ((_, tag), _) -> parseProperties tag ev |> parseProperties elem
     | `Data dt -> (
         match elem with
         | "SyndicObjectID" -> Ev.setId ev dt |> parseProperties elem
@@ -40,7 +46,7 @@ let activites inputString =
       match Xmlm.input i with
       |`El_start ((_, tag), _) when tag = "properties" ->
         parseProperties tag Ev.empty :: activites |> parse
-      | _ -> parse activites
+        | _ -> parse activites
   in
   parse []
 
@@ -94,3 +100,53 @@ let evenementDetails inputString idEv =
       | _ -> parse()
   in
   parse()
+
+
+let evenements inputString typePath =
+  let typePath = typePath |> To.slashSplit |> List.rev
+  in
+  let i = Xmlm.make_input (`String(0, inputString)) in
+
+  let rec parseEv path elem ed =
+    match Xmlm.input i with
+    | `El_start ((_, tag), _) -> parseEv (tag::path) tag ed |> parseEv path elem
+    | `Data dt -> (
+        match elem with
+        | "SyndicObjectID" -> EvDtl.setId ed dt |> parseEv path elem
+        | "Commune" -> EvDtl.setCommune ed dt |> parseEv path elem
+        | "NomOffre" -> EvDtl.setNameEvenement ed dt |> parseEv path elem
+        | "SyndicObjectName" -> EvDtl.setEntreprise ed dt |> parseEv path elem
+        | "GmapLatitude" -> EvDtl.setLattitude ed dt |> parseEv path elem
+        | "GmapLongitude" -> EvDtl.setLongitude ed dt |> parseEv path elem
+        | "CommMail" -> EvDtl.setMail ed dt |> parseEv path elem
+        | "Tarifs" -> EvDtl.setTarif ed dt |> parseEv path elem
+        | "Equipements" -> EvDtl.setEquipement ed dt |> parseEv path elem
+        | "Adresse1" -> EvDtl.addToAdresse ed dt |> parseEv path elem
+        | "Adresse2" -> EvDtl.addToAdresse ed dt |> parseEv path elem
+        | "Adresse3" -> EvDtl.addToAdresse ed dt |> parseEv path elem
+        | "Adresse1Suite" -> EvDtl.addToAdresse ed dt |> parseEv path elem 
+        | "CommWeb" -> EvDtl.setSite ed dt |> parseEv path elem
+        | "plateformeURL" -> EvDtl.setReseauSociaux ed dt |> parseEv path elem
+        | "Services" -> EvDtl.setServices ed dt |> parseEv path elem
+        | "CommTel" -> EvDtl.setTel ed dt |> parseEv path elem
+        | "CodePostal" -> EvDtl.setCodePostal ed dt |> parseEv path elem
+        | "ModePaiement" -> EvDtl.setModePaiement ed dt |> parseEv path elem
+        | "TarifGratuit" -> EvDtl.setTarifGratuit ed dt |> parseEv path elem
+        | "Acces" -> EvDtl.setAcces ed dt |> parseEv path elem
+        | "OuvertureGranule" -> EvDtl.setOuverture ed dt |> parseEv path elem
+        | "VideosUrl" -> EvDtl.setVideoUrl ed dt |> parseEv path elem
+        | _ -> if path = typePath then EvDtl.setTypeEvenement ed dt else ed
+               |> parseEv path elem
+      )
+    | `El_end -> ed
+    | _ -> parseEv path elem ed 
+  in
+  let rec parse lst =
+    if Xmlm.eoi i then lst
+    else
+      match Xmlm.input i with
+      |`El_start ((_, tag), _) when tag = "properties" ->
+        (parseEv [] tag EvDtl.empty) :: lst |> parse
+      | _ -> parse lst
+  in
+  parse []

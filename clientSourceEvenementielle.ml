@@ -5,11 +5,17 @@ module EvDtl = EvenementDetails
 
 let url_evenementielle = "http://wcf.tourinsoft.com/Syndication/3.0/cdt72/e9a8e2bf-c933-4831-9ebb-87eec559a21a/Objects"
 let url_type = url_evenementielle(* ^ Url.encode "format=json&select=Categorie&orderby=Categorie" *)
+let typePath = "Categorie/ThesLibelle"
+
+
+let getEvenements() =
+  Ocsigen_http_client.get_url url_evenementielle >>= To.content
+  >>= (fun s -> ParseXml.evenements s typePath |> Lwt.return)
 
 
 let getType() =
   Ocsigen_http_client.get_url url_type >>= To.content
-  >>= (fun s -> ParseXml.typeActivite s |> Lwt.return)
+  >>= (fun s -> To.file "ev.xml" s; ParseXml.typeActivite s typePath |> Lwt.return)
 
 
 let getListeActivite typeActivite =

@@ -2,6 +2,7 @@ type t = {
   id : string;
   entreprise : string;
   nameEvenement : string;
+  typeEvenement : string;
   commune : string;
   lattitude : string;
   longitude : string;
@@ -34,6 +35,7 @@ let empty = {
   id = "";
   entreprise = "";
   nameEvenement = "";
+  typeEvenement = "";
   commune = "";
   lattitude = "";
   longitude = "";
@@ -58,6 +60,15 @@ let empty = {
 let make id nameEvenement commune = {empty with id; nameEvenement; commune}
 
 let isOk ed = ed.id <> ""
+
+let getId ed = ed.id
+let setId ed id = {ed with id}
+
+let setNameEvenement ed nameEvenement = {ed with nameEvenement}
+let getNameEvenement ed = ed.nameEvenement
+
+let setTypeEvenement ed typeEvenement = {ed with typeEvenement}
+let getTypeEvenement ed = ed.typeEvenement
 
 let getEquipement ed = ed.equipement
 let setEquipement ed equipement = {ed with equipement}
@@ -98,12 +109,6 @@ let setAcces ed acces = {ed with acces}
 
 let getOuverture ed = ed.ouverture
 let setOuverture ed ouverture = {ed with ouverture}
-
-let getId ed = ed.id
-let setId ed id = {ed with id}
-
-let setNameEvenement ed nameEvenement = {ed with nameEvenement}
-let getNameEvenement ed = ed.nameEvenement
 
 let getCommune ed = ed.commune
 let setCommune ed commune = {ed with commune}

@@ -28,4 +28,6 @@ let () =
             Html.F.(body [
               h1 [pcdata "Actualités cuculturelles"];
             ])));
-  ;;
+
+  Lwt.async EvenementCore.getEvenements;
+;;

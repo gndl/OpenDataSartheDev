@@ -1,7 +1,8 @@
 open Lwt
+open Ocsigen_lib
 
 let path p =
-  Eliom_service.Path("wsopendatasarthedev/rservice/Evenements/" ^ p |> To.slashSplit)
+  Eliom_service.Path(To.slashSplit("wsopendatasarthedev/rservice/Evenements/" ^ p))
 
 let toResponse rep = Lwt.return(rep, "application/json")
 
@@ -19,6 +20,7 @@ let searchEvenementsService = Eliom_registration.String.create
     ~path:(path "search")
     ~meth:(Eliom_service.Get(Eliom_parameter.(suffix(string "type"))))
     (fun typeEv () ->
+       let typeEv = Url.decode typeEv in
        let%lwt es = EvenementCore.searchEvenements typeEv in
        es |> Evenement.listToJson |> toResponse)
 
