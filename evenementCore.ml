@@ -80,7 +80,7 @@ let makeCacheEvenements evenementsDetails =
   let%lwt () = Lwt_list.iter_s(fun ed ->
 
     let id, name, commune, typeEv =
-      EvenementDetails.(getId ed, getNameEvenement ed, getCommune ed, getTypeEvenement ed)
+      EvDtl.(getId ed, getNameEvenement ed, getCommune ed, getTypeEvenement ed)
     in
     let%lwt note = Notes.getNote id
     in
@@ -144,14 +144,14 @@ let getEvenement id =
     in
     ed |> amelioreEvenement |> Lwt.return
 
-  | Some eds -> (try Hashtbl.find eds id with Not_found -> EvenementDetails.empty)
+  | Some eds -> (try Hashtbl.find eds id with Not_found -> EvDtl.empty)
                 |> Lwt.return
 
 
 let makeCacheEvenementsDetails evenementsDetails =
   let eds = Hashtbl.create 100
   in
-  List.iter(fun ed -> Hashtbl.add eds (EvenementDetails.getId ed) ed)
+  List.iter(fun ed -> Hashtbl.add eds (EvDtl.getId ed) ed)
     evenementsDetails;
 
   cacheEvenementsDetails := Some eds
@@ -165,7 +165,7 @@ let getEvenements() =
 
   let evenementsDetails = liste1 @ liste2
   in
-  let categories = List.map(fun ed -> EvenementDetails.getTypeEvenement ed)
+  let categories = List.map(fun ed -> EvDtl.getTypeEvenement ed)
       evenementsDetails
   in
   makeCacheTypesEvenement categories |> ignore;

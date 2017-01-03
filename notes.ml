@@ -7,7 +7,3 @@ let getNote id =
     Not_found -> Lwt.return (-1)
 
 let setNote id note = Ocsipersist.add note_table id note
-
-let insertNote id note = Ocsipersist.add note_table id note
-
-let updateNote id note = Ocsipersist.add note_table id note
