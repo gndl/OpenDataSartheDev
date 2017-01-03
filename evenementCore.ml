@@ -160,10 +160,13 @@ let makeCacheEvenementsDetails evenementsDetails =
 (* Récupère la liste des évènements *)
 let getEvenements() =
 
-  let%lwt liste1 = ClientSourceEvenementielle.getEvenements() in
-  let%lwt liste2 = ClientSourceCulturel.getEvenements() in
+  let listeWs1Promise = ClientSourceEvenementielle.getEvenements() in
+  let listeWs2Promise = ClientSourceCulturel.getEvenements()
+  in
+  let%lwt listeWs1 = listeWs1Promise in
+  let%lwt listeWs2 = listeWs2Promise in
 
-  let evenementsDetails = liste1 @ liste2
+  let evenementsDetails = listeWs1 @ listeWs2
   in
   let categories = List.map(fun ed -> EvDtl.getTypeEvenement ed)
       evenementsDetails
