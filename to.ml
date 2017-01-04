@@ -4,7 +4,7 @@ open Ocsigen_lib
 (* a simple function to access the content of the response *)
 let content = function
   | { Ocsigen_http_frame.frame_content = Some v } ->
-    Ocsigen_stream.string_of_stream Sys.max_string_length (Ocsigen_stream.get v)
+    Ocsigen_stream.string_of_stream  (Int32.to_int Int32.max_int) (Ocsigen_stream.get v)
   | _ -> Lwt.return "reponse vide"
 
 let file filename str =
