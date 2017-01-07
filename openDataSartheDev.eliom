@@ -20,14 +20,8 @@ let main_service =
 let () =
   OpenDataSartheDev_app.register
     ~service:main_service
-    (fun () () ->
-       Lwt.return
-         (Eliom_tools.F.html
-            ~title:"OpenDataSartheDev"
-            ~css:[["css";"OpenDataSartheDev.css"]]
-            Html.F.(body [
-              h1 [pcdata "Actualités cuculturelles"];
-            ])));
+    (fun () () -> Lwt.return(MainView.make ())
+);
 
   Lwt.async EvenementCore.getEvenements;
 ;;
