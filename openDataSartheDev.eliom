@@ -20,7 +20,7 @@ let main_service =
 let () =
   OpenDataSartheDev_app.register
     ~service:main_service
-    (fun () () -> Lwt.return(MainView.make ())
+    (fun () () -> Lwt.return(ActivityView.element |> MainView.element)
 );
 
   Lwt.async EvenementCore.getEvenements;

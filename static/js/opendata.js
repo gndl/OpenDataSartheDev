@@ -265,27 +265,27 @@ function getDetailedSelection(url, env, id) {
 			var html = "<td colspan='4' style='padding:0px;'>\
 				<blockquote style='margin:0px;font-size:13px;height:460px;'>\
 					<table><tr><td>\
-							<span><b>id:</b>"+json.id+"</span><br />\
-							<span><b>nameEvenement:</b>"+json.nameEvenement+"</span><br />\
-							<span><b>tel:</b>"+json.tel+"</span><br />\
-							<span><b>mail:</b>"+json.mail+"</span><br />\
-							<span><b>site:</b>"+json.site+"</span><br />\
-							<span><b>reseauSociaux:</b>"+json.reseauSociaux+"</span><br />\
-							<span><b>ouverture:</b>"+json.ouverture+"</span><br />\
-							<span><b>equipement:</b>"+json.equipement+"</span><br />\
-							<span><b>services:</b>"+json.services+"</span><br />\
-							<span><b>entreprise:</b>"+json.entreprise+"</span><br />\
-							<span><b>adresse:</b>"+json.adresse+"</span><br />\
-							<span><b>commune:</b>"+json.commune+"</span><br />\
-							<span><b>codepostal:</b>"+json.codePostal+"</span><br />\
-							<span><b>acces:</b>"+json.acces+"</span><br />\
-							<span><b>longitude:</b>"+json.longitude+"</span><br />\
-							<span><b>lattitude:</b>"+json.lattitude+"</span><br />\
-							<span><b>tarif:</b>"+json.tarif+"</span><br />\
-							<span><b>tarifGratuit:</b>"+json.tarifGratuit+"</span><br />\
-							<span><b>modePaiement:</b>"+json.modePaiement+"</span><br />\
+							<span><b>id : </b>"+json.id+"</span><br />\
+							<span><b>nameEvenement : </b>"+json.nameEvenement+"</span><br />\
+							<span><b>tel : </b>"+json.tel+"</span><br />\
+							<span><b>mail : </b>"+json.mail+"</span><br />\
+							<span><b>site : </b>"+json.site+"</span><br />\
+							<span><b>reseauSociaux : </b>"+json.reseauSociaux+"</span><br />\
+							<span><b>ouverture : </b>"+json.ouverture+"</span><br />\
+							<span><b>equipement : </b>"+json.equipement+"</span><br />\
+							<span><b>services : </b>"+json.services+"</span><br />\
+							<span><b>entreprise : </b>"+json.entreprise+"</span><br />\
+							<span><b>adresse : </b>"+json.adresse+"</span><br />\
+							<span><b>commune : </b>"+json.commune+"</span><br />\
+							<span><b>codepostal : </b>"+json.codePostal+"</span><br />\
+							<span><b>acces : </b>"+json.acces+"</span><br />\
+							<span><b>longitude : </b>"+json.longitude+"</span><br />\
+							<span><b>lattitude : </b>"+json.lattitude+"</span><br />\
+							<span><b>tarif : </b>"+json.tarif+"</span><br />\
+							<span><b>tarifGratuit : </b>"+json.tarifGratuit+"</span><br />\
+							<span><b>modePaiement : </b>"+json.modePaiement+"</span><br />\
 						</td><td>\
-						"+json.cartOsm+"\
+						"+json.carteOsm+"\
 						</td></tr>\
 				</blockquote>\
 			</td>";

@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "OCaml",
+            "type": "ocamldebug",
+            "request": "launch",
+            "program": "$(HOME)/.opam/4.04.0/bin/ocsigenserver -v -c local/etc/OpenDataSartheDev/OpenDataSartheDev-test.conf",
+            "console": "internalConsole",
+            "stopOnEntry": false
+        }
+    ]
+}

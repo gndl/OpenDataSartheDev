@@ -1,6 +1,6 @@
-_server/openDataSartheDev.cmo : _server/mainView.cmo _server/evenementCore.cmo
-_server/openDataSartheDev.cmx : _server/mainView.cmx _server/evenementCore.cmx
-_server/openDataSartheDev.type_mli : _server/mainView.cmo _server/evenementCore.cmo
+_server/openDataSartheDev.cmo : _server/mainView.cmo _server/evenementCore.cmo _server/activityView.cmo
+_server/openDataSartheDev.cmx : _server/mainView.cmx _server/evenementCore.cmx _server/activityView.cmx
+_server/openDataSartheDev.type_mli : _server/mainView.cmo _server/evenementCore.cmo _server/activityView.cmo
 _server/openDataSartheDev.cmo : _server/openDataSartheDev.type_mli
 _server/openDataSartheDev.cmx : _server/openDataSartheDev.type_mli
 _server/evenementServiceRest.cmo : _server/typeEvenement.cmo _server/to.cmo _server/evenementDetails.cmo _server/evenementCore.cmo _server/evenement.cmo
@@ -8,10 +8,18 @@ _server/evenementServiceRest.cmx : _server/typeEvenement.cmx _server/to.cmx _ser
 _server/evenementServiceRest.type_mli : _server/typeEvenement.cmo _server/to.cmo _server/evenementDetails.cmo _server/evenementCore.cmo _server/evenement.cmo
 _server/evenementServiceRest.cmo : _server/evenementServiceRest.type_mli
 _server/evenementServiceRest.cmx : _server/evenementServiceRest.type_mli
+_server/activityControler.cmo :
+_server/activityControler.cmx :
+_server/activityControler.cmo : _server/activityControler.type_mli
+_server/activityControler.cmx : _server/activityControler.type_mli
 _server/mainView.cmo :
 _server/mainView.cmx :
 _server/mainView.cmo : _server/mainView.type_mli
 _server/mainView.cmx : _server/mainView.type_mli
+_server/activityView.cmo :
+_server/activityView.cmx :
+_server/activityView.cmo : _server/activityView.type_mli
+_server/activityView.cmx : _server/activityView.type_mli
 _server/to.cmo :
 _server/to.cmx :
 _server/notes.cmo :
@@ -38,7 +46,15 @@ _client/evenementServiceRest.cmo :
 _client/evenementServiceRest.cmx :
 _client/evenementServiceRest.cmo : _server/evenementServiceRest.type_mli
 _client/evenementServiceRest.cmx : _server/evenementServiceRest.type_mli
+_client/activityControler.cmo :
+_client/activityControler.cmx :
+_client/activityControler.cmo : _server/activityControler.type_mli
+_client/activityControler.cmx : _server/activityControler.type_mli
 _client/mainView.cmo :
 _client/mainView.cmx :
 _client/mainView.cmo : _server/mainView.type_mli
 _client/mainView.cmx : _server/mainView.type_mli
+_client/activityView.cmo :
+_client/activityView.cmx :
+_client/activityView.cmo : _server/activityView.type_mli
+_client/activityView.cmx : _server/activityView.type_mli

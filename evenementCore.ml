@@ -32,13 +32,12 @@ let makeCacheTypesEvenement categories =
 let getTypeEvenement() =
 
   match !cacheTypesEvenement with
+  | Some tes -> Lwt.return tes
   | None ->
     let%lwt liste1 = ClientSourceEvenementielle.getType() in
     let%lwt liste2 = ClientSourceCulturel.getType() in
 
     makeCacheTypesEvenement(liste1 @ liste2) |> Lwt.return
-
-  | Some tes -> Lwt.return tes
 
 
 let makeEvenements evs =
@@ -53,6 +52,7 @@ let makeEvenements evs =
 let searchEvenements typeEv =
 
   match !cacheEvenements with
+  | Some evs -> (try Hashtbl.find evs typeEv with Not_found -> []) |> Lwt.return
   | None ->
     (* gestion du caractere a la con *)
     let typeEv = if Str.string_match(Str.regexp "Cale") typeEv 0 then "Cale" else typeEv
@@ -70,8 +70,6 @@ let searchEvenements typeEv =
     let%lwt listeWs2 = listeWs2Promise in
 
     makeEvenements(listeWs1 @ listeWs2)
-
-  | Some evs -> (try Hashtbl.find evs typeEv with Not_found -> []) |> Lwt.return
 
 
 let makeCacheEvenements evenementsDetails =
@@ -134,6 +132,7 @@ let amelioreEvenement ed =
 (* retourne le detail d'un evenement. *)
 let getEvenement id =
   match !cacheEvenementsDetails with
+  | Some eds -> Lwt.return(try Hashtbl.find eds id with Not_found -> EvDtl.empty)
   | None ->
     (* requete de tous les ws pour recuperer les infos de l'evenement *)
     (* ws1 *)
@@ -143,9 +142,6 @@ let getEvenement id =
       else ClientSourceCulturel.getEvenementDetail id
     in
     ed |> amelioreEvenement |> Lwt.return
-
-  | Some eds -> (try Hashtbl.find eds id with Not_found -> EvDtl.empty)
-                |> Lwt.return
 
 
 let makeCacheEvenementsDetails evenementsDetails =

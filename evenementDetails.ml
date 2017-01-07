@@ -1,23 +1,23 @@
 type t = {
   id : string;
-  entreprise : string;
   nameEvenement : string;
   typeEvenement : string;
+  tel : string;
+  mail : string;
+  site : string;
   commune : string;
   lattitude : string;
   longitude : string;
   adresse : string;
-  codepotal : string;
+  codepostal : string;
   tarif : string;
-  tel : string;
   services : string;
+  entreprise : string;
   codePostal : string;
   modePaiement : string;
   tarifGratuit : string;
   acces : string;
   ouverture : string;
-  mail : string;
-  site : string;
   reseauSociaux : string;
   equipement : string;
   videosUrl : string;
@@ -33,17 +33,17 @@ let listToJson eds = Yojson.Safe.to_string(t_list_to_yojson eds)
 
 let empty = {
   id = "";
-  entreprise = "";
   nameEvenement = "";
   typeEvenement = "";
   commune = "";
   lattitude = "";
   longitude = "";
   adresse = "";
-  codepotal = "";
+  codepostal = "";
   tarif = "";
   tel = "";
   services = "";
+  entreprise = "";
   codePostal = "";
   modePaiement = "";
   tarifGratuit = "";
@@ -83,8 +83,8 @@ let getAdresse ed = ed.adresse
 let setAdresse ed adresse = {ed with adresse}
 let addToAdresse ed adressePart = {ed with adresse = String.concat " " [ed.adresse; adressePart]}
 
-let getCodepotal ed = ed.codepotal
-let setCodepotal ed codepotal = {ed with codepotal}
+let getCodepostal ed = ed.codepostal
+let setCodepostal ed codepostal = {ed with codepostal}
 
 let getTarif ed = ed.tarif
 let setTarif ed tarif = {ed with tarif}
