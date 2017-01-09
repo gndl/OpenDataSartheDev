@@ -72,6 +72,7 @@ let getTypeEvenement ed = ed.typeEvenement
 
 let getEquipement ed = ed.equipement
 let setEquipement ed equipement = {ed with equipement}
+let equipement f ed = {ed with equipement = f ed.equipement}
 
 let getLattitude ed = ed.lattitude
 let setLattitude ed lattitude = {ed with lattitude}
@@ -100,12 +101,14 @@ let setCodePostal ed codePostal = {ed with codePostal}
 
 let getModePaiement ed = ed.modePaiement
 let setModePaiement ed modePaiement = {ed with modePaiement}
+let modePaiement f ed = {ed with modePaiement = f ed.modePaiement}
 
 let getTarifGratuit ed = ed.tarifGratuit
 let setTarifGratuit ed tarifGratuit = {ed with tarifGratuit}
 
 let getAcces ed = ed.acces
 let setAcces ed acces = {ed with acces}
+let acces f ed = {ed with acces = f ed.acces}
 
 let getOuverture ed = ed.ouverture
 let setOuverture ed ouverture = {ed with ouverture}

@@ -96,15 +96,23 @@ let makeCacheEvenements evenementsDetails =
 
 
 let amelioreEvenement ed =
+
+  let ed = ed
+           |> EvDtl.equipement To.noSharp     (* traitement amelioration equipement *)
+           |> EvDtl.acces To.noSharpPipe      (* traitement amelioration acces *)
+           |> EvDtl.modePaiement To.noSharp   (* traitement amelioration modePaiement *)
+  in
+  (*
   (* traitement amelioration equipement *)
   let ed = EvDtl.getEquipement ed |> To.noSharp |> EvDtl.setEquipement ed
   in
-  (* traitement amelioration modePaiement *) 
+  (* traitement amelioration modePaiement *)
   let ed = EvDtl.getModePaiement ed |> To.noSharp |> EvDtl.setModePaiement ed
   in
   (* traitement amelioration acces *)
   let ed = EvDtl.getAcces ed |> To.noSharpPipe |> EvDtl.setAcces ed
   in
+  *)
   (* traitement amelioration reseauSociaux *)
   let rsx = EvDtl.getReseauSociaux ed
   in
