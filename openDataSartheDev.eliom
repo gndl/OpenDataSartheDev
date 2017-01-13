@@ -13,7 +13,7 @@ module OpenDataSartheDev_app =
 
 let main_service =
   Eliom_service.create
-    ~path:(Eliom_service.Path [])
+    ~path:(Eliom_service.Path ["opendata"])
     ~meth:(Eliom_service.Get Eliom_parameter.unit)
     ()
 

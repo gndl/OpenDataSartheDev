@@ -1,9 +1,8 @@
 open Lwt
 open Ocsigen_lib
-open To
 
 let path p =
-  Eliom_service.Path(slashSplit("wsopendatasarthedev/rservice/Evenements/" ^ p))
+  Eliom_service.Path(To.slashSplit("wsopendatasarthedev/rservice/Evenements/" ^ p))
 
 let toResponse rep = Lwt.return(rep, "application/json")
 

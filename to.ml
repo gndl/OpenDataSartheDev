@@ -1,6 +1,7 @@
 open Lwt
 open Ocsigen_lib
 
+
 (* a simple function to access the content of the response *)
 let content = function
   | { Ocsigen_http_frame.frame_content = Some v } ->
@@ -31,3 +32,4 @@ let doublePipeSplit s = Str.split regDoublePipe s
 
 let regSlash = Str.regexp "/"
 let slashSplit s = Str.split regSlash s
+

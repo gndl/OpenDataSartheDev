@@ -1,7 +1,7 @@
 [%%shared
 open Eliom_lib
 open Eliom_content
-open Html.D
+open Html.F
 open Tyxml
 ]
 (*
@@ -22,12 +22,18 @@ let title = "OPEND@T@"
 let element content =
   Eliom_tools.F.html
     ~title:"OPEND@T@"
-    ~css:[["css"; "OpenDataSartheDev.css"]]
+    ~css:[["css"; "bootstrap.min.css"];
+          ["css"; "starter-template.css"];
+          ["css"; "jqcloud.css"];
+         ]
     (body [
-       div ~a:[a_class["container"]] [
-         div ~a:[a_class["headerbar"]] [pcdata title];
-         div ~a:[a_id "navbar"; a_class["navbar"]] [];
-
-       div ~a:[a_id"content"] [content];
-     ]
-    ])
+       nav ~a:[a_class["navbar"; "navbar-inverse"; "navbar-fixed-top"]] [
+         div ~a:[a_class["container"]] [
+           div ~a:[a_class["navbar-header"]] [
+             div ~a:[a_class["navbar-brand"]] [pcdata title]
+           ];
+           div ~a:[a_id "navbar"; a_class["collapse"; "navbar-collapse"]] [];
+         ]
+       ];
+       div ~a:[a_id"content"] [content]
+     ])
