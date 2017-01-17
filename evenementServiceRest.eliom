@@ -7,7 +7,7 @@ let path p =
 let toResponse rep = Lwt.return(rep, "application/json")
 
 (* Service getTypeEvenements *)
-let getTypeEvenementsService = Eliom_registration.String.create
+let getTypeEvenements = Eliom_registration.String.create
     ~path:(path "typeEvenements")
     ~meth:(Eliom_service.Get Eliom_parameter.unit)
     (fun () () ->
@@ -16,7 +16,7 @@ let getTypeEvenementsService = Eliom_registration.String.create
 
 
 (* Service searchEvenements *)
-let searchEvenementsService = Eliom_registration.String.create
+let searchEvenements = Eliom_registration.String.create
     ~path:(path "search")
     ~meth:(Eliom_service.Get(Eliom_parameter.(suffix(string "type"))))
     (fun typeEv () ->
@@ -26,7 +26,7 @@ let searchEvenementsService = Eliom_registration.String.create
 
 
 (* Service getEvenement *)
-let getEvenementService = Eliom_registration.String.create
+let getEvenement = Eliom_registration.String.create
     ~path:(path "")
     ~meth:(Eliom_service.Get(Eliom_parameter.(suffix(string "id"))))
     (fun id () ->
@@ -35,9 +35,12 @@ let getEvenementService = Eliom_registration.String.create
 
 
 (* Service saveNote *)
-let saveNoteService = Eliom_registration.String.create
+let saveNote = Eliom_registration.String.create
     ~path:(path "note")
     ~meth:(Eliom_service.Get Eliom_parameter.(suffix(string "id" ** int "note")))
     (fun  (id, note) () ->
        let%lwt () = EvenementCore.saveNote id note in
        "" |> toResponse)
+
+
+let () = Lwt.async EvenementCore.getEvenements
