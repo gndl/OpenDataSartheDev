@@ -1,14 +1,19 @@
-[%%shared
+[%%client
 open Usual
-]
 
-let%client getSelectionResultsFromTagClick tag = ()
-(*
-  log[tag]
-              let%lwt _ =
-                Ot_popup.popup
-                  ~close_button:[ Os_icons.F.close () ]
-                  (fun _ -> Lwt.return @@ p [pcdata tag])
-              in
-              Lwt.return ()
-              *)
+let tagUrl = "http://localhost:8080/wsopendatasarthedev/rservice/Evenements/typeEvenements"
+let tagClickedUrl = "http://localhost:8080/wsopendatasarthedev/rservice/Evenements/search/"
+let selectionNoteUrl = "http://localhost:8080/wsopendatasarthedev/rservice/Evenements/note/"
+let selectionDetailUrl = "http://localhost:8080/wsopendatasarthedev/rservice/Evenements/"
+
+let getCloud () =
+  
+  let%lwt r = XmlHttpRequest.get tagUrl
+  in
+  let msg = r.XmlHttpRequest.content in
+  Lwt.return msg
+
+let getSelectionResultsFromTagClick tag =
+
+  (log[tag])
+]

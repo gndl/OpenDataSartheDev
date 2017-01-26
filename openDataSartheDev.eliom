@@ -18,15 +18,16 @@ let main_service =
     ~meth:(Eliom_service.Get Eliom_parameter.unit)
     ()
 
-(* Make service available on the client 
-let%client main_service = ~%main_service
-*)
 let%shared title = "OPEND@T@"
 
 let _ =
   OpenDataSartheDev_app.register
     ~service:main_service
     (fun () () ->
+       let _ = [%client (
+         MainView.setContent(ActivityView.getElement())
+         : unit)
+       ] in
        Lwt.return(Eliom_tools.D.html
                     ~title
                     ~css:[["css"; "bootstrap.min.css"];
@@ -34,9 +35,13 @@ let _ =
                           ["css"; "jqcloud.css"];
                          ]
                     (MainView.getElement title)
-    ))
+                 ))
 
 [%%client
 let () =
-  Eliom_client.onload(fun () -> MainView.setContent(ActivityView.getElement()))
+  Eliom_client.onload(fun () -> 
+    (*  Dom_html.window##alert(Js.string "Eliom_client.onload");
+        MainView.setContent(ActivityView.getElement())
+    *)
+    () )
 ]

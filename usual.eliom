@@ -92,6 +92,9 @@ let%client startChrono msg = Firebug.console##time(js msg)
 let%client stopChrono msg = Firebug.console##timeEnd(js msg)
 let%client log msg = Firebug.console##log(js (sol msg))
 (*
+let%client log msg = Dom_html.window##alert(js (sol msg))
+*)
+(*
 let log msg = ()
 let startChrono msg = ()
 let stopChrono msg = ()

@@ -2,7 +2,7 @@
 open Eliom_lib
 open Eliom_content
 open Eliom_content.Html
-open Eliom_content.Html.D
+open Eliom_content.Html.F
 open Tyxml
 open Usual
 ]
@@ -20,6 +20,9 @@ link ~rel "stylesheet" ~href "css/jqcloud.css";
 script ~src "js/opendata.js";
   *)
 
+let%shared container_id = "main_view_content_container_id"
+
+
 let%shared getElement title =
   body [
     nav ~a:[a_class["navbar"; "navbar-inverse"; "navbar-fixed-top"]] [
@@ -30,8 +33,8 @@ let%shared getElement title =
         div ~a:[a_id "navbar"; a_class["collapse"; "navbar-collapse"]] [];
       ]
     ];
-    div ~a:[a_id"content"] []
+    div ~a:[a_id container_id] []
   ]
 
 let%client setContent content =
-  Dom.appendChild(Dom_html.getElementById "content") (To_dom.of_element content)
+  Dom.appendChild(Dom_html.getElementById container_id) (To_dom.of_element content)
