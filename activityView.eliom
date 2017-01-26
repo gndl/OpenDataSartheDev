@@ -1,6 +1,6 @@
 [%%client
 open Eliom_content.Html
-open Eliom_content.Html.F
+open Eliom_content.Html.D
 
 
 let onTagCloudClick ev _ =
@@ -57,9 +57,6 @@ let getElement() =
     span ~a:[a_class["tag"]] [pcdata "Cinéma"];
   ]
   in
-
-  let button = Tko.button "Coin" (fun _ -> Dom_html.window##alert(Js.string "Coin!"); Js._false)
-  in
   div [
     div ~a:[a_style "background-color:#aa0000;color:white;padding-left:6px;font-size:14px;height:20px;"] [
       div ~a:[a_id "tagWeightContainer"; a_style "display:none;"] [
@@ -67,7 +64,6 @@ let getElement() =
       ];
     ];
     div [
-      p [button];
       cloudElement;
       tagCloudElement;
       div ~a:[a_id "results"; a_style "display:none;margin-left:36px;"] [
