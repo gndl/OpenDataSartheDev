@@ -80,13 +80,6 @@ let%shared originPolarCoordinates = {d = 0.; a = 0.}
 let%client js = Js.string
 
 module%client Html = Dom_html
-(*
-let%client doc = Dom_html.window##document
-*)
-type canvas_t = Dom_html.canvasElement Js.t
-type canvasContext_t = Dom_html.canvasRenderingContext2D Js.t
-(*type webglContext_t = WebGL.renderingContext Js.t Js.opt*)
-type webglContext_t = WebGL.renderingContext Js.t
 
 let%client startChrono msg = Firebug.console##time(js msg)
 let%client stopChrono msg = Firebug.console##timeEnd(js msg)
@@ -103,3 +96,20 @@ let stopChrono msg = ()
 let%client error f = Printf.ksprintf (fun s -> Firebug.console##error (Js.string s); failwith s) f
 let%client debug f = Printf.ksprintf (fun s -> Firebug.console##log(Js.string s)) f
 let%client alert f = Printf.ksprintf (fun s -> Dom_html.window##alert(Js.string s); failwith s) f
+
+(*
+let%client doc = Dom_html.window##document
+*)
+
+let%client setOnClick element doOnClick =
+  Lwt.async (fun () ->
+	Lwt_js_events.clicks (Eliom_content.Html.To_dom.of_element element)
+	(fun ev _ -> Lwt.return(doOnClick ev))
+  )
+
+
+type canvas_t = Dom_html.canvasElement Js.t
+type canvasContext_t = Dom_html.canvasRenderingContext2D Js.t
+(*type webglContext_t = WebGL.renderingContext Js.t Js.opt*)
+type webglContext_t = WebGL.renderingContext Js.t
+

@@ -3,10 +3,10 @@ open Eliom_content.Html
 open Eliom_content.Html.D
 
 
-let onTagCloudClick ev _ =
+let onTagCloudClick ev =
 
   Usual.log["onTagCloudClick"];
-  (try
+  try
      match Dom.eventTarget ev |> Dom_html.CoerceTo.element |> Js.Opt.to_option with
      | None -> Usual.log["Not element"]; ()
      | Some elt ->
@@ -17,26 +17,7 @@ let onTagCloudClick ev _ =
            ActivityControler.getSelectionResultsFromTagClick (Js.to_string tag)
        )
        else ()
-   with Not_found -> Usual.log["Not_found"]; ())
-  |> Lwt.return
-
-
-let onCloudClick ev =
-
-  Usual.log["onCloudClick"];
-  try
-     match Dom.eventTarget ev |> Dom_html.CoerceTo.element |> Js.Opt.to_option with
-     | None -> Usual.log["Not element"]; Js._true
-     | Some elt ->
-       if Js.to_bool (elt##.classList##contains (Js.string "tag")) then (
-         match elt##.textContent |> Js.Opt.to_option with
-         | None -> Usual.log["Not content"]; Js._true
-         | Some tag ->
-           ActivityControler.getSelectionResultsFromTagClick (Js.to_string tag);
-           Js._false
-       )
-       else Js._true
-   with Not_found -> Usual.log["Not_found"]; Js._true
+   with Not_found -> Usual.log["Not_found"]; ()
 
 
 let getElement() =
@@ -46,17 +27,8 @@ let getElement() =
     span ~a:[a_class["tag"]] [pcdata "Cinéma"];
   ]
   in
-  Lwt.async (fun () ->
-    Lwt_js_events.clicks (To_dom.of_element tagCloudElement) onTagCloudClick
-  );
+  Usual.setOnClick tagCloudElement onTagCloudClick;
 
-  let cloudElement = Tko.div "cloud"
-  ~onclick:onCloudClick [
-    div ~a:[a_class["tag"]] [pcdata "Concert"];
-    span ~a:[a_class["tag"]] [pcdata "Spectacle"];
-    span ~a:[a_class["tag"]] [pcdata "Cinéma"];
-  ]
-  in
   div [
     div ~a:[a_style "background-color:#aa0000;color:white;padding-left:6px;font-size:14px;height:20px;"] [
       div ~a:[a_id "tagWeightContainer"; a_style "display:none;"] [
@@ -64,7 +36,6 @@ let getElement() =
       ];
     ];
     div [
-      cloudElement;
       tagCloudElement;
       div ~a:[a_id "results"; a_style "display:none;margin-left:36px;"] [
         div ~a:[a_id "selectedTag"] [

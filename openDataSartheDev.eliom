@@ -24,10 +24,6 @@ let _ =
   OpenDataSartheDev_app.register
     ~service:main_service
     (fun () () ->
-       let _ = [%client (
-         MainView.setContent(ActivityView.getElement())
-         : unit)
-       ] in
        Lwt.return(Eliom_tools.D.html
                     ~title
                     ~css:[["css"; "bootstrap.min.css"];
@@ -39,9 +35,7 @@ let _ =
 
 [%%client
 let () =
-  Eliom_client.onload(fun () -> 
-    (*  Dom_html.window##alert(Js.string "Eliom_client.onload");
-        MainView.setContent(ActivityView.getElement())
-    *)
-    () )
+  Eliom_client.onload(fun () ->
+    MainView.setContent(ActivityView.getElement())
+  )
 ]
